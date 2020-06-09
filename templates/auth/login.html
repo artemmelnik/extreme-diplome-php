@@ -1,0 +1,44 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="auth-form">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h2>Авторизация</h2>
+
+                        {% if session.get('errors') %}
+                            <div class="alert alert-danger" role="alert">
+                                {% for error in session.get('errors') %}
+                                    {{ error }}<br>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        <form action="/auth/login" method="post">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-control" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label>Ваш пароль</label>
+                                <input type="password" name="password" class="form-control">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Авторизация</button>
+                        </form>
+                    </div>
+                    <div class="card-footer">
+                        <p class="form-text text-muted">Вы еще не зарегистрированы?</p>
+                        <a href="/signup" class="card-link">Перейти к регистрации</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

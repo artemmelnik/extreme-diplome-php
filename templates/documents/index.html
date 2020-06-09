@@ -1,0 +1,68 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="page-heading">
+                <h2>Все документы</h2>
+
+                {% if auth.hasPermission('documents.add') %}
+                <a href="/admin/documents/create">Добавить документ</a>
+                {% endif %}
+            </div>
+
+            {% if documents is empty %}
+            <p>Документов нет.</p>
+            {% else %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Название документа</th>
+                    <th scope="col">Дата создания</th>
+                    <th scope="col"></th>
+                    {% if auth.hasPermission('documents.edit') or auth.hasPermission('documents.delete') %}
+                    <th scope="col"></th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for document in documents %}
+                <tr>
+                    <th scope="row">{{ document.id }}</th>
+                    <td>{{ document.name }}</td>
+                    <td>{{ document.created_at }}</td>
+                    <td>
+                        <a href="/public/storage/{{ document.file }}" download>
+                            Скачать
+                        </a>
+                    </td>
+                    {% if auth.hasPermission('documents.edit') or auth.hasPermission('documents.delete') %}
+                    <td style="text-align: right">
+                        <div class="btn-group">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Действие
+                            </button>
+                            <div class="dropdown-menu">
+                                {% if auth.hasPermission('documents.edit') %}
+                                <a class="dropdown-item" href="">Редактировать</a>
+                                {% endif %}
+                                {% if auth.hasPermission('documents.delete') %}
+                                <a class="dropdown-item" href="#">Удалить</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

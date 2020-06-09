@@ -1,0 +1,68 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+
+<form class="container" action="/admin/questions/{{ test.id }}/store" method="post">
+    <div class="row">
+        <div class="col">
+            <div class="page-heading">
+                <h2>Добавление вопроса</h2>
+
+                <a href="/admin/tests/{{ test.id }}/edit">Назад к тесту</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Вопрос</label>
+                        <input type="text" class="form-control" name="question[title]">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Варианты ответов</div>
+                <table class="table js-container-answer">
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control" name="answers[title][first]" placeholder="Ответ...">
+                        </td>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="answers[correctly]" value="first">
+                                <label class="form-check-label">
+                                    Верный
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="javascript:void(0)" class="btn btn-danger js-remove-answer">Удалить</a>
+                        </td>
+                    </tr>
+                </table>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-primary js-add-answer" data-test-id="{{ test.id }}">
+                        Добавить вариант ответа
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4>Тест: {{ test.title }}</h4>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Создать вопрос</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

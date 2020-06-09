@@ -1,0 +1,42 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="page-heading">
+                <h2>Все пользователи</h2>
+            </div>
+
+            {% if users is empty %}
+            <p>Пользователей нет.</p>
+            {% else %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Дата создания</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                <tr>
+                    <th scope="row">{{ user.id }}</th>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.created_at }}</td>
+                    <td>
+                        <a href="/admin/users/{{ user.id }}/edit">Редактировать</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

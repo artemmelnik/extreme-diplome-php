@@ -1,0 +1,64 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="page-heading">
+                <h2>{{ test.title }}</h2>
+
+                <a href="#">Назад к тестам</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <form action="" method="post">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Название теста</label>
+                            <input type="text" class="form-control" name="title" value="{{ test.title }}">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="card">
+                <div class="card-header">
+                    Список вопросов
+                </div>
+
+                {% if questions is empty %}
+                <div class="card-body">Вопросов нет.</div>
+                {% else %}
+                <table class="table">
+                    {% for question in questions %}
+                    <tr>
+                        <td>{{ question.title }}</td>
+                        <td>
+                            <a href="/admin/questions/{{ question.id }}/edit" class="btn btn-light">Редактировать</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <p>Перейти к добавлению вопроса к данному тесту</p>
+                    <a href="/admin/questions/{{ test.id }}/create" class="btn btn-primary">Добавить вопрос</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

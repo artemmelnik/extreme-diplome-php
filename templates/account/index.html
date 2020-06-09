@@ -1,0 +1,78 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+
+<form action="/account/update" method="post" enctype="multipart/form-data" class="container">
+    <div class="row">
+        <div class="col-4">
+
+            <div class="card">
+                <div class="card-body">
+                    {% if user.photo %}
+                    <img src="/public/storage/{{ user.photo }}" class="card-img-top">
+                    {% else %}
+                    <img src="https://bufferyandco.co.uk/wp-content/uploads/user.png" class="card-img-top">
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <input type="file" name="photo">
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <h2>Мои данные</h2>
+
+            {% if user.first_name == '' %}
+            <div class="alert alert-warning" role="alert">
+                Заполните пожалуйста свой профиль.
+            </div>
+            {% endif %}
+
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" name="email" value="{{ user.email }}" readonly>
+                <small id="emailHelp" class="form-text text-muted">E-mail нельзя изменить.</small>
+            </div>
+            <div class="form-group">
+                <label>ФИО</label>
+                <div class="form-row">
+                    <div class="col">
+                        <input type="text" name="last_name" class="form-control" value="{{ user.last_name }}" placeholder="Фамилия">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="first_name" class="form-control" value="{{ user.first_name }}" placeholder="Имя">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="middle_name" class="form-control" value="{{ user.middle_name }}" placeholder="Отчество">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-8">
+                        <label>Должность</label>
+                        <input type="text" class="form-control" name="position" value="{{ user.position }}">
+                    </div>
+                    <div class="col-4">
+                        <label>Дата устройства</label>
+                        <input type="date" name="job_date" value="{{ user.job_date }}" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Роль</label>
+                <select class="form-control" name="role_id">
+                    {% for id, role in roles %}
+                    <option value="{{ id }}" {% if id == user.role_id %} selected {% endif %} >{{ role.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <br>
+            <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

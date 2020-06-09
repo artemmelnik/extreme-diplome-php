@@ -1,0 +1,32 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <div class="page-heading">
+                <h2>Создание теста</h2>
+
+                <a href="#">Назад к тестам</a>
+            </div>
+
+
+            <form action="/admin/tests/store" method="post">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Название теста</label>
+                            <input type="text" class="form-control" name="title">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Создать тест</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

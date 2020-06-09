@@ -1,0 +1,75 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="page-heading">
+                <h2>Все тесты</h2>
+
+                {% if auth.hasPermission('tests.add') %}
+                <a href="/admin/tests/create">Добавить тест</a>
+                {% endif %}
+            </div>
+
+            {% if tests is empty %}
+            <p>Тестов нет.</p>
+            {% else %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Название теста</th>
+                    <th scope="col">Дата создания</th>
+                    <th scope="col"></th>
+                    {% if auth.hasPermission('tests.edit') or auth.hasPermission('tests.delete') %}
+                    <th scope="col"></th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for test in tests %}
+                <tr>
+                    <th scope="row">{{ test.id }}</th>
+                    <td>{{ test.title }}</td>
+                    <td>{{ test.created_at }}</td>
+                    <td>
+                        {% if test.auth_status %}
+                        <a href="/testing/{{ test.id }}" style="color: green">
+                            Тест пройден
+                        </a>
+                        {% else %}
+                        <a href="/testing/{{ test.id }}" class="c">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            Начать тест
+                        </a>
+                        {% endif %}
+                    </td>
+                    {% if auth.hasPermission('tests.edit') or auth.hasPermission('tests.delete') %}
+                    <td style="text-align: right">
+                        <div class="btn-group">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Действие
+                            </button>
+                            <div class="dropdown-menu">
+                                {% if auth.hasPermission('tests.edit') %}
+                                <a class="dropdown-item" href="/admin/tests/{{ test.id }}/edit">Редактировать</a>
+                                {% endif %}
+                                {% if auth.hasPermission('tests.delete') %}
+                                <a class="dropdown-item" href="#">Удалить</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

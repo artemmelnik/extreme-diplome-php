@@ -1,0 +1,49 @@
+.auth-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+
+.auth-form .card {
+    min-width: 350px;
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+main {
+    margin-top: 35px;
+}
+
+.card {
+    margin-bottom: 30px;
+}
+
+table td {
+    vertical-align: middle!important;
+}
+
+#timer {
+    margin-bottom: 20px;
+    display: inline-flex;
+    border: 1px solid #dfe1e2;
+    border-radius: 4px;
+    font-size: 22px;
+    font-weight: 500;
+    padding: 11px 25px;
+    color: #037bfe;
+}
+
+.btn-custom {
+
+}
+
+.btn-custom svg {
+
+}
