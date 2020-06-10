@@ -60,6 +60,7 @@
                     </div>
                 </div>
             </div>
+            {% if auth.hasPermission('users.manage') %}
             <div class="form-group">
                 <label>Роль</label>
                 <select class="form-control" name="role_id">
@@ -68,6 +69,12 @@
                     {% endfor %}
                 </select>
             </div>
+            {% else %}
+            <div class="form-group">
+                <label>Роль</label>
+                <input type="text" class="form-control" value="{{ roles[user.role_id].name }}" readonly>
+            </div>
+            {% endif %}
 
             <br>
             <button type="submit" class="btn btn-primary">Сохранить изменения</button>

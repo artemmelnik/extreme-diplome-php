@@ -66,6 +66,13 @@ abstract class Model
         return $this->find($id);
     }
 
+    public function delete(int $id)
+    {
+        return $this->db->query('DELETE FROM ' . static::$table . ' WHERE id = :id', [
+            'id' => $id
+        ]);
+    }
+
     public function find(int $id)
     {
         $query = $this->db->query('SELECT * FROM ' . static::$table . ' WHERE id = :id LIMIT 1', [

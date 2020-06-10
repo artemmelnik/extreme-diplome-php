@@ -57,4 +57,15 @@ class DocumentController extends Controller
             }
         }
     }
+
+    public function delete(int $id)
+    {
+        $file = $this->documentModel->find($id);
+
+        if (unlink(BASE_DIR . '/public/storage/' . $file['file'])) {
+            $this->documentModel->delete($id);
+        }
+
+        redirect('/admin/documents');
+    }
 }

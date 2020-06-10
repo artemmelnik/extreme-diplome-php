@@ -19,6 +19,8 @@ return [
             'tests.edit',
             'tests.delete',
             'documents.add',
+            'documents.delete',
+            'users.manage',
         ]
     ]
 ];

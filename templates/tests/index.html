@@ -57,7 +57,9 @@
                                 <a class="dropdown-item" href="/admin/tests/{{ test.id }}/edit">Редактировать</a>
                                 {% endif %}
                                 {% if auth.hasPermission('tests.delete') %}
-                                <a class="dropdown-item" href="#">Удалить</a>
+                                <form id="test{{ test.id }}" action="/admin/tests/{{ test.id }}/delete" method="post">
+                                    <a onclick="document.getElementById('test{{ test.id }}').submit()" class="dropdown-item" href="javascript:void(0)">Удалить</a>
+                                </form>
                                 {% endif %}
                             </div>
                         </div>

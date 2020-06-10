@@ -60,6 +60,10 @@ $routes->add('admin.tests.store', new Route('/admin/tests/store', [
     '_controller' => 'TestController@store'
 ]));
 
+$routes->add('admin.tests.delete', new Route('/admin/tests/{id}/delete', [
+    '_controller' => 'TestController@delete'
+]));
+
 $routes->add('admin.questions.create', new Route('/admin/questions/{testId}/create', [
     '_controller' => 'QuestionController@create'
 ]));
@@ -96,12 +100,20 @@ $routes->add('admin.documents.store', new Route('/admin/documents/store', [
     '_controller' => 'DocumentController@store'
 ]));
 
+$routes->add('admin.documents.delete', new Route('/admin/documents/{id}/delete', [
+    '_controller' => 'DocumentController@delete'
+]));
+
 $routes->add('admin.users', new Route('/admin/users', [
     '_controller' => 'UserController@index'
 ]));
 
 $routes->add('admin.users.edit', new Route('/admin/users/{id}/edit', [
     '_controller' => 'UserController@edit'
+]));
+
+$routes->add('admin.users.update', new Route('/admin/users/{id}/update', [
+    '_controller' => 'UserController@update'
 ]));
 
 $method = $_SERVER['REQUEST_METHOD'];

@@ -52,6 +52,10 @@ class TestController extends Controller
         $dateNow   = new \DateTime;
         $dateDiff  = $dateStart->diff($dateNow);
 
+        $isEndTime = false;
+        if ($dateDiff->h > 0 || $dateDiff->d > 0) {
+            $isEndTime = true;
+        }
 
         $number = 1;
         $countQuestions = count($questions);
@@ -77,8 +81,8 @@ class TestController extends Controller
 
         $resultData = $this->testService->resultData($logs);
 
-        // Если все вопросы пройдены
-        if ($countQuestions < $numberQuestion) {
+        // Если все вопросы пройдены или закончилось время
+        if (($countQuestions < $numberQuestion || $isEndTime) && $testResult['status'] == 0) {
             $this->testResultModel->update($testResult['id'], [
                 'status' => 1,
                 'result_time' => sprintf('%s мин. %s сек.', $dateDiff->i, $dateDiff->s),
@@ -177,6 +181,19 @@ class TestController extends Controller
         } catch (\Exception $exception) {
             exit($exception->getMessage());
         }
+
+        redirect('/admin/tests');
+    }
+
+    public function delete(int $id)
+    {
+        (new Test())->delete($id);
+
+        foreach ((new Question())->whereTestId($id) as $item) {
+            (new Answer())->clearByQuestionId($item['id']);
+        }
+
+        (new Question())->deleteWhereTestId($id);
 
         redirect('/admin/tests');
     }

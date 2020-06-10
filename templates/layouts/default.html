@@ -31,9 +31,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/documents">Документация</a>
                 </li>
+                {% if auth.hasPermission('users.manage') %}
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/users">Пользователи</a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="/auth/logout">Выйти</a>
                 </li>

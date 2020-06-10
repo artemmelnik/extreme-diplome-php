@@ -14,4 +14,11 @@ class Question extends Model
 
         return $query;
     }
+
+    public function deleteWhereTestId(int $testId)
+    {
+        return $this->db->query('DELETE FROM ' . static::$table . ' WHERE test_id = :test_id', [
+            'test_id' => $testId
+        ]);
+    }
 }

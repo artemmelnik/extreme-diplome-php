@@ -28,34 +28,42 @@
                 <div class="page-heading">
                     <h2>Тест: {{ test.title }}</h2>
                 </div>
+
+                {% if testResult %}
                 <div id="timer"
                      data-status="{{ testResult.status }}"
                      data-time-end="{{ dateEnd }}"
                      data-h="{{ dateDiff.h }}"
                      data-i="{{ dateDiff.i }}"
-                     data-s="{{ dateDiff.s }}">
+                     data-s="{{ dateDiff.s+1 }}">
                 </div>
+                {% endif %}
 
                 <form action="" method="get">
 
                     {% for question in questions %}
                     {% if numberQuestion == question.number %}
-                    <h4><span style="opacity: 0.7">Вопрос #{{ question.number }}:</span> {{ question.title }}</h4>
-                    <input type="hidden" name="numberQuestion" value="{{ numberQuestion }}">
-                    <input type="hidden" name="question_id" value="{{ question.id }}">
+                        <h4><span style="opacity: 0.7">Вопрос #{{ question.number }}:</span> {{ question.title }}</h4>
+                        <br>
+                        <input type="hidden" name="numberQuestion" value="{{ numberQuestion }}">
+                        <input type="hidden" name="question_id" value="{{ question.id }}">
 
-                    {% for answer in question.answers %}
+                        <ul class="list-group">
+                            {% for answer in question.answers %}
+                                <li class="list-group-item">
+                                    {% if answer.correctly == 1 %}
+                                    <input type="hidden" name="correctly" value="{{ answer.id }}">
+                                    {% endif %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="answer_id" id="answer{{ answer.id }}" value="{{ answer.id }}" required>
+                                        <label class="form-check-label" for="answer{{ answer.id }}">
+                                            {{ answer.title }}
+                                        </label>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
 
-                    {% if answer.correctly == 1 %}
-                    <input type="hidden" name="correctly" value="{{ answer.id }}">
-                    {% endif %}
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="answer_id" id="answer{{ answer.id }}" value="{{ answer.id }}" required>
-                        <label class="form-check-label" for="answer{{ answer.id }}">
-                            {{ answer.title }}
-                        </label>
-                    </div>
-                    {% endfor %}
                     {% endif %}
                     {% endfor %}
 

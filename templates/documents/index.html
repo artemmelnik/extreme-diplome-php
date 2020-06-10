@@ -50,7 +50,9 @@
                                 <a class="dropdown-item" href="">Редактировать</a>
                                 {% endif %}
                                 {% if auth.hasPermission('documents.delete') %}
-                                <a class="dropdown-item" href="#">Удалить</a>
+                                <form id="document{{ document.id }}" action="/admin/documents/{{ document.id }}/delete" method="post">
+                                    <a onclick="document.getElementById('document{{ document.id }}').submit()" class="dropdown-item" href="javascript:void(0)">Удалить</a>
+                                </form>
                                 {% endif %}
                             </div>
                         </div>
