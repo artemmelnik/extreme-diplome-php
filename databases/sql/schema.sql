@@ -6,7 +6,7 @@ CREATE TABLE users
   first_name varchar(255),
   last_name varchar(255),
   middle_name varchar(255),
-  photo varchar(255),
+  photo varchar(255) DEFAULT NULL,
   position varchar(255),
   job_date date NOT NULL,
   role_id int(2) DEFAULT '0' NOT NULL,
@@ -46,4 +46,24 @@ CREATE TABLE answers (
   question_id INT(11),
   title VARCHAR(255),
   correctly TINYINT(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE test_results (
+  id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  user_id INT(11),
+  test_id INT(11),
+  status TINYINT(1) NOT NULL DEFAULT 0,
+  result_time varchar(10) DEFAULT NULL,
+  result_answers INT(5) DEFAULT 0,
+  result_correct_answers INT(5) DEFAULT 0,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE documents (
+  id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  file VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
