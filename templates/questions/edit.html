@@ -1,5 +1,7 @@
 {% extends "layouts/default.html" %}
 
+{% block title %}Редактирование вопроса{% endblock %}
+
 {% block content %}
 
 <form class="container" action="/admin/questions/{{ question.id }}/update" method="post">

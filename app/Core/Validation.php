@@ -38,10 +38,12 @@ class Validation
 
         $errors = [];
 
+        $exclude = ['email', 'confirm_password'];
+
         foreach ($this->params as $key => $value) {
             if (isset($this->rules[$key])
                 && $this->rules[$key] === 'required'
-                && $key !== 'email'
+                && in_array($key, $exclude) === false
                 && $this->isRequired($value) === false
             ) {
                 $errors[] = $this->messages[$key];
@@ -70,7 +72,7 @@ class Validation
                 'password' => $this->params['password'],
             ]) === false
         ) {
-            $errors[] = 'Пользователь с таким E-mail не зарегистрирован';
+            $errors[] = 'Данные не верны';
         }
 
         if (!empty($errors)) {
@@ -83,7 +85,7 @@ class Validation
 
     private function isRequired(string $value)
     {
-        return !(strlen($value) < 6);
+        return !(strlen($value) < 4);
     }
 
     private function isEmail(string $value)

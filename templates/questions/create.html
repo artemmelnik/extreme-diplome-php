@@ -1,5 +1,7 @@
 {% extends "layouts/default.html" %}
 
+{% block title %}Создание вопроса{% endblock %}
+
 {% block content %}
 
 <form class="container" action="/admin/questions/{{ test.id }}/store" method="post">

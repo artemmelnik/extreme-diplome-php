@@ -1,5 +1,7 @@
 {% extends "layouts/default.html" %}
 
+{% block title %}Мой аккаунт{% endblock %}
+
 {% block content %}
 
 <form action="/account/update" method="post" enctype="multipart/form-data" class="container">
@@ -25,6 +27,14 @@
             {% if user.first_name == '' %}
             <div class="alert alert-warning" role="alert">
                 Заполните пожалуйста свой профиль.
+            </div>
+            {% endif %}
+
+            {% if session.get('errors') %}
+            <div class="alert alert-danger" role="alert">
+                {% for error in session.get('errors') %}
+                {{ error }}<br>
+                {% endfor %}
             </div>
             {% endif %}
 
@@ -81,5 +91,40 @@
         </div>
     </div>
 </form>
+
+<div class="container" style="margin-top: 35px">
+    <div class="row">
+        <div class="col-12">
+            <h3>Пройденные курсы и тренинги</h3>
+            <a href="/educations/create">Добавить</a>
+
+            <br>
+            <br>
+
+            {% if educations is empty %}
+            <p>Тренингов нет.</p>
+            {% else %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Наименование</th>
+                    <th scope="col">Дата</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for education in educations %}
+                <tr>
+                    <th scope="row">{{ education.id }}</th>
+                    <td>{{ education.name }}</td>
+                    <td>{{ education.date }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
 {% endblock %}

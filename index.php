@@ -116,6 +116,22 @@ $routes->add('admin.users.update', new Route('/admin/users/{id}/update', [
     '_controller' => 'UserController@update'
 ]));
 
+$routes->add('educations.create', new Route('/educations/create', [
+    '_controller' => 'EducationController@create'
+]));
+
+$routes->add('educations.edit', new Route('/educations/{id}/edit', [
+    '_controller' => 'EducationController@edit'
+]));
+
+$routes->add('educations.store', new Route('/educations/store', [
+    '_controller' => 'EducationController@store'
+]));
+
+$routes->add('educations.delete', new Route('/educations/{id}/delete', [
+    '_controller' => 'EducationController@delete'
+]));
+
 $method = $_SERVER['REQUEST_METHOD'];
 
 $context = new RequestContext('/', $method);

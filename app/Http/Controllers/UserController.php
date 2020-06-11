@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Core\View\AuthExtension;
 use App\Http\Request;
+use App\Models\Education;
 use App\Models\TestResult;
 use App\Models\User;
 
@@ -40,11 +41,13 @@ class UserController extends Controller
         $user = $this->userModel->find($id);
         $roles = require BASE_DIR . '/config/roles.php';
         $testResults = $this->testResultModel->whereUserId($id);
+        $educations = (new Education())->whereUserId($user['id']);
 
         echo $this->view('users/edit.html', [
             'user' => $user,
             'roles' => $roles,
-            'testResults' => $testResults
+            'testResults' => $testResults,
+            'educations' => $educations,
         ]);
     }
 
