@@ -17,6 +17,14 @@
 
     <div class="row">
         <div class="col-8">
+            {% if session.get('errors') %}
+            <div class="alert alert-danger" role="alert">
+                {% for error in session.get('errors') %}
+                {{ error }}<br>
+                {% endfor %}
+            </div>
+            {% endif %}
+
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">

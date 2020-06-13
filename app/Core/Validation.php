@@ -41,6 +41,7 @@ class Validation
         $exclude = ['email', 'confirm_password'];
 
         foreach ($this->params as $key => $value) {
+
             if (isset($this->rules[$key])
                 && $this->rules[$key] === 'required'
                 && in_array($key, $exclude) === false
@@ -55,6 +56,14 @@ class Validation
                 && $this->isEmail($value) === false
             ) {
                 $errors[] = $this->messages[$key];
+            }
+
+            if (isset($this->rules[$key])
+                && $this->rules[$key] === 'required,unique'
+                && $key === 'email'
+                && $this->isUniqueEmail($value) === false
+            ) {
+                $errors[] = 'Такой E-mail уже зарегистрирован';
             }
 
             if (isset($this->rules[$key])
@@ -95,6 +104,17 @@ class Validation
         }
 
         return true;
+    }
+
+    private function isUniqueEmail(string $value): bool
+    {
+        $user = (new User)->findByEmail($value);
+
+        if ($user === null) {
+            return true;
+        }
+
+        return false;
     }
 
     private function isConfirmPassword($password, $confirmPassword)

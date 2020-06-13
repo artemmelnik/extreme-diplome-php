@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Core\Validation;
 use App\Http\Request;
 use App\Models\Answer;
 use App\Models\Question;
@@ -39,15 +40,19 @@ class QuestionController extends Controller
         $answers = $request->get('answers');
         $correctly = $answers['correctly'];
 
-        $errors = [];
+        $validation = new Validation(
+            [
+                'title' => $questionData['title']
+            ],
+            [
+                'title' => 'required',
+            ],
+            [
+                'title' => 'Введите вопрос'
+            ]
+        );
 
-        if (strlen($questionData['title']) <= 5) {
-            $errors[] = 'Заполните поле вопрос';
-        }
-
-        if (!empty($errors)) {
-            print_r($errors); exit;
-        }
+        $validation->validate();
 
         $question = (new Question())->create([
             'test_id' => $testId,
@@ -82,15 +87,19 @@ class QuestionController extends Controller
         $answers = $request->get('answers');
         $correctly = $answers['correctly'];
 
-        $errors = [];
+        $validation = new Validation(
+            [
+                'title' => $questionData['title']
+            ],
+            [
+                'title' => 'required',
+            ],
+            [
+                'title' => 'Введите вопрос'
+            ]
+        );
 
-        if (strlen($questionData['title']) <= 5) {
-            $errors[] = 'Заполните поле вопрос';
-        }
-
-        if (!empty($errors)) {
-            print_r($errors); exit;
-        }
+        $validation->validate();
 
         $question = (new Question())->update($id, [
             'title' => $questionData['title']

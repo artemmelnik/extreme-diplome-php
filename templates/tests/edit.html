@@ -10,7 +10,7 @@
             <div class="page-heading">
                 <h2>{{ test.title }}</h2>
 
-                <a href="#">Назад к тестам</a>
+                <a href="/admin/tests">Назад к тестам</a>
             </div>
         </div>
     </div>
@@ -36,18 +36,18 @@
                 </div>
 
                 {% if questions is empty %}
-                <div class="card-body">Вопросов нет.</div>
+                    <div class="card-body">Вопросов нет.</div>
                 {% else %}
-                <table class="table">
-                    {% for question in questions %}
-                    <tr>
-                        <td>{{ question.title }}</td>
-                        <td>
-                            <a href="/admin/questions/{{ question.id }}/edit" class="btn btn-light">Редактировать</a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </table>
+                    <table class="table">
+                        {% for question in questions %}
+                        <tr>
+                            <td>{{ question.title }}</td>
+                            <td>
+                                <a href="/admin/questions/{{ question.id }}/edit" class="btn btn-light">Редактировать</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
                 {% endif %}
             </div>
         </div>

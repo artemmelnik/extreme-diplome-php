@@ -83,6 +83,7 @@
                     <th scope="col">Всего ответов</th>
                     <th scope="col">Верных ответов</th>
                     <th scope="col">Дата</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 {% for result in testResults %}
@@ -93,6 +94,55 @@
                     <td>{{ result.result_answers }}</td>
                     <td>{{ result.result_correct_answers }}</td>
                     <td>{{ result.created_at }}</td>
+                    <td>
+                        <button type="button" class="btn" data-toggle="modal" data-target="#more{{ result.id }}">
+                            Подробнее
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="more{{ result.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">{{ result.title }}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table">
+                                            {% for log in testLogs[result.id] %}
+                                            <tr>
+                                                <td>
+                                                    Вопрос №{{ log.number }}: <strong>{{ log.question.title }}</strong>
+                                                    <div>
+                                                        Ответ пользователя: <mark>{{ log.answer.title }}</mark>
+                                                    </div>
+
+                                                    {% if log.answer_id != log.correctly %}
+                                                    <div>
+                                                        Верный ответ: <mark>{{ log.correctly_answer.title }}</mark>
+                                                    </div>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if log.answer_id == log.correctly %}
+                                                    <span class="badge badge-success">Верный ответ</span>
+                                                    {% else %}
+                                                    <span class="badge badge-danger">Не верный ответ</span>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
                 {% endfor %}
             </table>
