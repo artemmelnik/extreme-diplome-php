@@ -2,7 +2,7 @@
 
 session_start();
 
-date_default_timezone_set('Europe/Kiev');
+date_default_timezone_set('Europe/Moscow');
 
 require 'vendor/autoload.php';
 

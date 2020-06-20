@@ -48,7 +48,7 @@ class TestController extends Controller
         $correctly      = $request->get('correctly');
 
         $dateStart = new \DateTime($testResult['created_at']);
-        $dateEnd   = (new \DateTime($testResult['created_at']))->modify('+58 minutes');
+        $dateEnd   = (new \DateTime($testResult['created_at']))->modify('+60 minutes');
         $dateNow   = new \DateTime;
         $dateDiff  = $dateStart->diff($dateNow);
 
